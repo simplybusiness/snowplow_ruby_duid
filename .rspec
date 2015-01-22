@@ -1,0 +1,4 @@
+-r rutabaga
+--order rand
+--color
+--require spec_helper
