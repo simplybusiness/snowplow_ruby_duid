@@ -1,5 +1,3 @@
-require 'time'
-
 module SnowplowRubyDuid
   describe DomainUserid do
     let(:request_env) do
@@ -10,9 +8,9 @@ module SnowplowRubyDuid
         'HTTP_ACCEPT_LANGUAGE' => 'accept_language',
       }
     end
-    let(:request_created_at) { (DateTime.parse '2015-01-22 15:26:31 +0000').to_time }
+    before { set_the_request_created_at_time '2015-01-22 15:26:31 +0000' }
 
-    subject { (described_class.new request_env, @request_created_at || request_created_at).to_s }
+    subject { (described_class.new request_env, @request_created_at).to_s }
 
     describe '#to_s' do
       it 'generates the domain userid' do
@@ -27,7 +25,7 @@ module SnowplowRubyDuid
     step 'a request environment' do; end
 
     step 'the time is :time' do |time|
-      @request_created_at = (DateTime.parse time).to_time
+      set_the_request_created_at_time time
     end
 
     step 'I create a domain userid' do; end
@@ -44,4 +42,8 @@ module SnowplowRubyDuid
       expect(subject).to eq(domain_userid)
     end
   end
+end
+
+def set_the_request_created_at_time(time)
+  @request_created_at = (DateTime.parse time).to_time
 end

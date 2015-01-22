@@ -32,12 +32,12 @@ Feature: Creating a Snowplow cookie
     Examples:
       | host                           | cookie name |
       | localhost                      | _sp_id.1fff |
-      | 127.0.0.1                      | _sp_id.1fff |
-      | 192.168.2.40                   | _sp_id.1fff |
-      | www.simplybusiness.co.uk       | _sp_id.1fff |
-      | www.quote.simplybusiness.co.uk | _sp_id.1fff |
-      | simplybusiness.co.uk           | _sp_id.1fff |
-      | www.simplybusiness.com         | _sp_id.1fff |
+      | 127.0.0.1                      | _sp_id.dc78 |
+      | 192.168.2.40                   | _sp_id.f0ae |
+      | www.simplybusiness.co.uk       | _sp_id.8fb9 |
+      | www.quote.simplybusiness.co.uk | _sp_id.8fb9 |
+      | simplybusiness.co.uk           | _sp_id.8fb9 |
+      | www.simplybusiness.com         | _sp_id.bdbc |
 
   Scenario: The cookie should expire after 2 years
     When I create a Snowplow cookie
@@ -45,9 +45,9 @@ Feature: Creating a Snowplow cookie
 
   Scenario: The cookie's value should be in the following format: domain_userid.createTs.visitCount.nowTs.lastVisitTs
     When I create a Snowplow cookie
-    Then the cookie value is 'domain_user_id.1111111111.0.1111111111.1111111111'
+    Then the cookie value is 'domain_user_id.1421940391.0.1421940391.'
      And the cookie value for 'domain_userid' is 'domain_user_id'
-     And the cookie value for 'createTs' is '1111111111'
+     And the cookie value for 'createTs' is '1421940391'
      And the cookie value for 'visitCount' is '0'
-     And the cookie value for 'nowTs' is '1111111111'
-     And the cookie value for 'lastVisitTs' is '1111111111'
+     And the cookie value for 'nowTs' is '1421940391'
+     And the cookie value for 'lastVisitTs' is ''
