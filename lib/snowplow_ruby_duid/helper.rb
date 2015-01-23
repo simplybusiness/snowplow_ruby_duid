@@ -23,6 +23,7 @@ module SnowplowRubyDuid
     end
     private :create_snowplow_domain_userid
 
+    # See: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker#310-setting-the-domain-user-id-with-set_domain_user_id
     def find_snowplow_domain_userid
       snowplow_cookie = find_snowplow_cookie
       # The cookie value is in this format: domainUserId.createTs.visitCount.nowTs.lastVisitTs
