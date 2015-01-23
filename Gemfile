@@ -5,10 +5,12 @@ gemspec
 
 group :development, :test do
   gem 'pry-plus'
-  gem 'rake'
 end
 
 group :test do
+  gem 'rack'
+  gem 'rack-test'
   gem 'rspec'
   gem 'rutabaga'
+  gem 'timecop'
 end
