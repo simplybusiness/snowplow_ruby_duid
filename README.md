@@ -7,7 +7,7 @@ A gem that exposes the Snowplow domain userid in Rack applications. Also allows 
 Add the gem to your Gemfile
 
 ```ruby
-gem 'snowplow_ruby_duid', git: 'git@github.com:simplybusiness/snowplow_ruby_duid'
+gem 'snowplow_ruby_duid'
 ```
 
 ### Rails
