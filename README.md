@@ -28,7 +28,7 @@ helpers SnowplowRubyDuid::Helper
 A method called `snowplow_domain_userid` will be exposed in your application's context. Calling this method results in the following behaviour:
 
 - If there is already a Snowplow domain userid in the request's cookie, the value of the id will be returned.
-- Else, a Snowplow domain userid will be generated and persisted in the response's cookie.
+- Else, a Snowplow domain userid will be generated and persisted in the response's cookie. This domain userid will continue to be used by the Snowplow Javascript tracker on the client side.
 
 ## Running the specs and features
 
