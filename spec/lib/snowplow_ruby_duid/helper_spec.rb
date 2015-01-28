@@ -25,6 +25,7 @@ module SnowplowRubyDuid
       end
 
       step 'I request the Snowplow domain userid' do
+        allow_any_instance_of(DomainUserid).to receive(:to_s).and_return('2222222222222222')
         get '/'
       end
 

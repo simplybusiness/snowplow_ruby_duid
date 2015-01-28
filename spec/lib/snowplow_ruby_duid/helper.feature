@@ -9,4 +9,4 @@ Feature: Helper method for accessing and saving a Snowplow domain userid
     Examples:
       | original domain userid in cookie | domain userid    | current domain userid in cookie |
       | 1111111111111111                 | 1111111111111111 | 1111111111111111                |
-      |                                  | 0915770cf6e21be4 | 0915770cf6e21be4                |
+      |                                  | 2222222222222222 | 2222222222222222                |

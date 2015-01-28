@@ -15,7 +15,7 @@ module SnowplowRubyDuid
 
     def create_snowplow_domain_userid
       request_created_at = Time.now
-      domain_userid      = (DomainUserid.new request.env, request_created_at).to_s
+      domain_userid      = DomainUserid.new.to_s
       snowplow_cookie    = Cookie.new request.host, domain_userid, request_created_at
 
       response.set_cookie snowplow_cookie.key, snowplow_cookie.value
