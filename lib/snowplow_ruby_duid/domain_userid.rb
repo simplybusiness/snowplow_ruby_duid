@@ -6,8 +6,12 @@ module SnowplowRubyDuid
 
     LENGTH_OF_DUID_IN_BYTES = 8
 
+    def initialize
+      @domain_user_id = domain_user_id
+    end
+
     def to_s
-      domain_user_id
+      @domain_user_id
     end
 
     private
