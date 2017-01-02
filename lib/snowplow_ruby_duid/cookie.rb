@@ -2,15 +2,14 @@ module SnowplowRubyDuid
   # Responsible for generating a cookie that emulates the Snowplow cookie as closely as possible
   # Leverages the method used by ActionDispatch::Cookies::CookieJar to determine the top-level domain
   class Cookie
-
     # See: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L142
-    COOKIE_PATH            = '/'
+    COOKIE_PATH            = '/'.freeze
     # See: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L156
     COOKIE_DURATION_MONTHS = 24
     # See: https://github.com/rails/rails/blob/b1124a2ac88778c0feb0157ac09367cbd204bf01/actionpack/lib/action_dispatch/middleware/cookies.rb#L214
     DOMAIN_REGEXP          = /[^.]*\.([^.]*|..\...|...\...)$/
 
-    def initialize host, domain_userid, request_created_at
+    def initialize(host, domain_userid, request_created_at)
       @host               = host
       @domain_userid      = domain_userid
       @request_created_at = request_created_at
@@ -29,7 +28,7 @@ module SnowplowRubyDuid
         value:   cookie_value,
         expires: cookie_expiration,
         domain:  cookie_domain,
-        path:    COOKIE_PATH,
+        path:    COOKIE_PATH
       }
     end
 
@@ -37,9 +36,7 @@ module SnowplowRubyDuid
 
     # See: https://github.com/rails/rails/blob/b1124a2ac88778c0feb0157ac09367cbd204bf01/actionpack/lib/action_dispatch/middleware/cookies.rb#L286-L294
     def top_level_domain
-      if (@host !~ /^[\d.]+$/) && (@host =~ DOMAIN_REGEXP)
-        $&
-      end
+      $& if (@host !~ /^[\d.]+$/) && (@host =~ DOMAIN_REGEXP)
     end
 
     # See: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L476-L487

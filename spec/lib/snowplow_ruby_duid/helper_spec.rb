@@ -54,7 +54,6 @@ module SnowplowRubyDuid
       end
 
       context 'when there is not an existing snowplow cookie' do
-
         it 'generates a domain userid and saves it in the response cookie' do
           get '/'
           expect(subject).to include(app.domain_userid)
@@ -69,10 +68,10 @@ class App
 
   attr_reader :request, :response, :domain_userid
 
-  def call env
+  def call(env)
     @request  = Rack::Request.new env
     @response = Rack::Response.new
-    request.cookies.each{|k,v| response.set_cookie k, v }
+    request.cookies.each { |k, v| response.set_cookie k, v }
 
     @domain_userid = snowplow_domain_userid
 

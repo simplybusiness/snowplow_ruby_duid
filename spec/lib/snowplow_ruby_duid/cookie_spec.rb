@@ -9,22 +9,19 @@ module SnowplowRubyDuid
     subject { described_class.new @host, @domain_userid, @request_created_at }
 
     describe '#key' do
-
       it 'generates the key' do
         expect(subject.key).to eq('_sp_id.8fb9')
       end
     end
 
     describe '#value' do
-
       it 'generates a cookie' do
         expect(subject.value).to eq(
-        {
           domain:  '.simplybusiness.co.uk',
           expires: (DateTime.parse '2017-01-22 15:26:31 +0000').to_time,
           path:    '/',
           value:   'domain_user_id.1421940391.0.1421940391.'
-        })
+        )
       end
     end
 
@@ -72,18 +69,18 @@ module SnowplowRubyDuid
 
     step 'the cookie value for :field is :value' do |field, value|
       value_index = case field
-      when 'domain_userid'
-        then 0
-      when 'createTs'
-        then 1
-      when 'visitCount'
-        then 2
-      when 'nowTs'
-        then 3
-      when 'lastVisitTs'
-        then 4
-      else
-        raise "unknown field name: #{field}"
+                    when 'domain_userid'
+                      then 0
+                    when 'createTs'
+                      then 1
+                    when 'visitCount'
+                      then 2
+                    when 'nowTs'
+                      then 3
+                    when 'lastVisitTs'
+                      then 4
+                    else
+                      raise "unknown field name: #{field}"
       end
 
       value = nil if value == ''

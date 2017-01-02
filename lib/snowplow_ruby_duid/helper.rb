@@ -3,7 +3,6 @@ module SnowplowRubyDuid
   # that will find or create a domain_userid, which will be
   # saved in the response's cookie if it does not exist
   module Helper
-
     def snowplow_domain_userid
       @snowplow_domain_userid ||= find_or_create_snowplow_domain_userid
     end
@@ -32,7 +31,7 @@ module SnowplowRubyDuid
     private :find_snowplow_domain_userid
 
     def find_snowplow_cookie
-      request.cookies.find { |(key, value)| key =~ /^#{KEY_PREFIX}/ } # result will be an array containing: [key, value]
+      request.cookies.find { |(key, _value)| key =~ /^#{KEY_PREFIX}/ } # result will be an array containing: [key, value]
     end
     private :find_snowplow_cookie
   end
