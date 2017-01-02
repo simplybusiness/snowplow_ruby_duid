@@ -1,0 +1,6 @@
+Metrics/LineLength:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Exclude:
+    - 'spec/lib/snowplow_ruby_duid/cookie_spec.rb'

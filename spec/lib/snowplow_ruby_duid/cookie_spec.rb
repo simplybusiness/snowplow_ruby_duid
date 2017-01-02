@@ -78,7 +78,7 @@ module SnowplowRubyDuid
                         then 4
                       else
                         raise "unknown field name: #{field}"
-        end
+                      end
 
         value = nil if value == ''
 

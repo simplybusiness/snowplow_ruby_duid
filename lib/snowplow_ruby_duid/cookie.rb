@@ -19,7 +19,7 @@ module SnowplowRubyDuid
     # See: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L372-L374
     def key
       domain = top_level_domain || @host
-      KEY_PREFIX + '.' + (Digest::SHA1.hexdigest (domain + COOKIE_PATH))[0..3]
+      KEY_PREFIX + '.' + Digest::SHA1.hexdigest(domain + COOKIE_PATH)[0..3]
     end
 
     def value
@@ -41,10 +41,10 @@ module SnowplowRubyDuid
 
     # See: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L476-L487
     def cookie_value
-      visitCount  = '0'
-      lastVisitTs = ''
-      createTs = nowTs = @request_created_at.to_i.to_s
-      [@domain_userid, createTs, visitCount, nowTs, lastVisitTs].join '.'
+      visit_count = '0'
+      last_visit_ts = ''
+      create_ts = now_ts = @request_created_at.to_i.to_s
+      [@domain_userid, create_ts, visit_count, now_ts, last_visit_ts].join '.'
     end
 
     def cookie_expiration
