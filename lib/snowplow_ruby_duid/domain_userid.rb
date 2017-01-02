@@ -3,7 +3,6 @@ module SnowplowRubyDuid
   # Deviates from this Snowplow Javascript: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L468-L472
   #   in order to provide a more unique identifier
   class DomainUserid
-
     LENGTH_OF_DUID_IN_BYTES = 8
 
     def initialize

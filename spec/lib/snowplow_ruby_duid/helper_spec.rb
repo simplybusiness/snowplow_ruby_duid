@@ -16,25 +16,23 @@ module SnowplowRubyDuid
       end
       subject { last_response.header['Set-Cookie'] }
 
-      it 'runs the feature' do
-        feature
-      end
+      feature do
+        step 'I set a Snowplow domain userid of :domain_userid in my cookie' do |domain_userid|
+          set_cookie("_sp_id.3678=#{domain_userid}.631152000.0.631152000.631152000") unless domain_userid == ''
+        end
 
-      step 'I set a Snowplow domain userid of :domain_userid in my cookie' do |domain_userid|
-        set_cookie("_sp_id.3678=#{domain_userid}.631152000.0.631152000.631152000") unless domain_userid == ''
-      end
+        step 'I request the Snowplow domain userid' do
+          allow_any_instance_of(DomainUserid).to receive(:to_s).and_return('2222222222222222')
+          get '/'
+        end
 
-      step 'I request the Snowplow domain userid' do
-        allow_any_instance_of(DomainUserid).to receive(:to_s).and_return('2222222222222222')
-        get '/'
-      end
+        step 'I receive the Snowplow domain userid :domain_userid' do |domain_userid|
+          expect(app.domain_userid).to eq(domain_userid)
+        end
 
-      step 'I receive the Snowplow domain userid :domain_userid' do |domain_userid|
-        expect(app.domain_userid).to eq(domain_userid)
-      end
-
-      step 'I have the Snowplow domain userid :domain_userid in my cookie' do |domain_userid|
-        expect(subject).to include(domain_userid)
+        step 'I have the Snowplow domain userid :domain_userid in my cookie' do |domain_userid|
+          expect(subject).to include(domain_userid)
+        end
       end
 
       context 'when there is an existing snowplow cookie' do
@@ -54,7 +52,6 @@ module SnowplowRubyDuid
       end
 
       context 'when there is not an existing snowplow cookie' do
-
         it 'generates a domain userid and saves it in the response cookie' do
           get '/'
           expect(subject).to include(app.domain_userid)
@@ -69,10 +66,10 @@ class App
 
   attr_reader :request, :response, :domain_userid
 
-  def call env
+  def call(env)
     @request  = Rack::Request.new env
     @response = Rack::Response.new
-    request.cookies.each{|k,v| response.set_cookie k, v }
+    request.cookies.each { |k, v| response.set_cookie k, v }
 
     @domain_userid = snowplow_domain_userid
 
