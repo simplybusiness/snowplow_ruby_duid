@@ -1,3 +1,5 @@
+require 'SecureRandom'
+
 module SnowplowRubyDuid
   # Generates a pseudo-unique ID to fingerprint the user
   # Deviates from this Snowplow Javascript: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L468-L472
