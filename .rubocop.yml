@@ -8,3 +8,7 @@ Style/BlockDelimiters:
 Style/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
+
+Style/DateTime:
+  Exclude:
+    - 'lib/snowplow_ruby_duid/cookie.rb'
