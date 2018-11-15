@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SnowplowRubyDuid
   describe DomainUserid do
     subject { described_class.new.to_s }

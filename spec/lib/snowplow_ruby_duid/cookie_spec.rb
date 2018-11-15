@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SnowplowRubyDuid
   describe Cookie do
     before do
@@ -17,10 +19,10 @@ module SnowplowRubyDuid
     describe '#value' do
       it 'generates a cookie' do
         expect(subject.value).to eq(
-          domain:  '.simplybusiness.co.uk',
+          domain: '.simplybusiness.co.uk',
           expires: (DateTime.parse '2017-01-22 15:26:31 +0000').to_time,
-          path:    '/',
-          value:   'domain_user_id.1421940391.0.1421940391.'
+          path: '/',
+          value: 'domain_user_id.1421940391.0.1421940391.'
         )
       end
     end

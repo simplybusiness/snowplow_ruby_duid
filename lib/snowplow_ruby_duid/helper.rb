@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SnowplowRubyDuid
   # Exposes a snowplow_domain_userid method in the context
   # that will find or create a domain_userid, which will be
