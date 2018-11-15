@@ -4,3 +4,11 @@ Metrics/LineLength:
 Style/BlockDelimiters:
   Exclude:
     - 'spec/lib/snowplow_ruby_duid/cookie_spec.rb'
+
+Style/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Style/DateTime:
+  Exclude:
+    - 'lib/snowplow_ruby_duid/cookie.rb'
