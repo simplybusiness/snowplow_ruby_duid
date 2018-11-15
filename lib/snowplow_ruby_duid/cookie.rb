@@ -5,7 +5,7 @@ module SnowplowRubyDuid
   # Leverages the method used by ActionDispatch::Cookies::CookieJar to determine the top-level domain
   class Cookie
     # See: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L142
-    COOKIE_PATH            = '/'
+    COOKIE_PATH            = '/'.freeze
     # See: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L156
     COOKIE_DURATION_MONTHS = 24
     # See: https://github.com/rails/rails/blob/b1124a2ac88778c0feb0157ac09367cbd204bf01/actionpack/lib/action_dispatch/middleware/cookies.rb#L214
