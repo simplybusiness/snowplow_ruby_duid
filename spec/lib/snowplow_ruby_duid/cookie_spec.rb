@@ -5,7 +5,7 @@ module SnowplowRubyDuid
     before do
       @host               = 'www.simplybusiness.co.uk'
       @domain_userid      = 'domain_user_id'
-      @request_created_at = (DateTime.parse '2015-01-22 15:26:31 +0000').to_time
+      @request_created_at = (Time.parse '2015-01-22 15:26:31 +0000').to_time
     end
 
     subject { described_class.new @host, @domain_userid, @request_created_at }
@@ -20,7 +20,7 @@ module SnowplowRubyDuid
       it 'generates a cookie' do
         expect(subject.value).to eq(
           domain: '.simplybusiness.co.uk',
-          expires: (DateTime.parse '2017-01-22 15:26:31 +0000').to_time,
+          expires: (Time.parse '2017-01-22 15:26:31 +0000').to_time,
           path: '/',
           value: 'domain_user_id.1421940391.0.1421940391.'
         )
@@ -37,7 +37,7 @@ module SnowplowRubyDuid
       end
 
       step 'the time is :time' do |time|
-        @request_created_at = (DateTime.parse time).to_time
+        @request_created_at = (Time.parse time).to_time
       end
 
       step 'I create a Snowplow cookie' do; end

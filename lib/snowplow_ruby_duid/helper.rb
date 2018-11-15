@@ -9,10 +9,11 @@ module SnowplowRubyDuid
       @snowplow_domain_userid ||= find_or_create_snowplow_domain_userid
     end
 
+    private
+
     def find_or_create_snowplow_domain_userid
       find_snowplow_domain_userid || create_snowplow_domain_userid
     end
-    private :find_or_create_snowplow_domain_userid
 
     def create_snowplow_domain_userid
       request_created_at = Time.now
@@ -22,7 +23,6 @@ module SnowplowRubyDuid
       response.set_cookie snowplow_cookie.key, snowplow_cookie.value
       domain_userid
     end
-    private :create_snowplow_domain_userid
 
     # See: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker#310-setting-the-domain-user-id-with-set_domain_user_id
     def find_snowplow_domain_userid
@@ -30,11 +30,9 @@ module SnowplowRubyDuid
       # The cookie value is in this format: domainUserId.createTs.visitCount.nowTs.lastVisitTs
       snowplow_cookie.last.split('.').first unless snowplow_cookie.nil?
     end
-    private :find_snowplow_domain_userid
 
     def find_snowplow_cookie
       request.cookies.find { |(key, _value)| key =~ /^#{KEY_PREFIX}/ } # result will be an array containing: [key, value]
     end
-    private :find_snowplow_cookie
   end
 end
