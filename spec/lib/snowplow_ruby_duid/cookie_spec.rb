@@ -67,20 +67,15 @@ module SnowplowRubyDuid
       end
 
       step 'the cookie value for :field is :value' do |field, value|
-        value_index = case field
-                      when 'domain_userid'
-                        then 0
-                      when 'createTs'
-                        then 1
-                      when 'visitCount'
-                        then 2
-                      when 'nowTs'
-                        then 3
-                      when 'lastVisitTs'
-                        then 4
-                      else
-                        raise "unknown field name: #{field}"
-                      end
+        value_indices = {
+          'domain_userid' => 0,
+          'createTs' => 1,
+          'visitCount' => 2,
+          'nowTs' => 3,
+          'lastVisitTs' => 4
+        }
+
+        value_index = value_indices.fetch(field)
 
         value = nil if value == ''
 
