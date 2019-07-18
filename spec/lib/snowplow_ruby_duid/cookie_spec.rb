@@ -69,15 +69,15 @@ module SnowplowRubyDuid
       step 'the cookie value for :field is :value' do |field, value|
         value_index = case field
                       when 'domain_userid'
-                        then 0
+                        0
                       when 'createTs'
-                        then 1
+                        1
                       when 'visitCount'
-                        then 2
+                        2
                       when 'nowTs'
-                        then 3
+                        3
                       when 'lastVisitTs'
-                        then 4
+                        4
                       else
                         raise "unknown field name: #{field}"
                       end
