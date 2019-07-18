@@ -69,10 +69,10 @@ module SnowplowRubyDuid
       step 'the cookie value for :field is :value' do |field, value|
         value_indices = {
           'domain_userid' => 0,
-          'createTs'      => 1,
-          'visitCount'    => 2,
-          'nowTs'         => 3,
-          'lastVisitTs'   => 4,
+          'createTs' => 1,
+          'visitCount' => 2,
+          'nowTs' => 3,
+          'lastVisitTs' => 4
         }
 
         value_index = value_indices.fetch(field)
