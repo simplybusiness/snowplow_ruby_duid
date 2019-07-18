@@ -75,7 +75,7 @@ module SnowplowRubyDuid
           'lastVisitTs'   => 4,
         }
 
-        value_index = value_indices.fetch(field) { raise "unknown field name: #{field}" }
+        value_index = value_indices.fetch(field)
 
         value = nil if value == ''
 
