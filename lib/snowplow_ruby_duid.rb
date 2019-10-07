@@ -9,4 +9,4 @@ module SnowplowRubyDuid
   KEY_PREFIX = '_sp_id'
 end
 
-ActionController::Base.send :include, SnowplowRubyDuid::Helper if defined?(ActionController)
+ActionController::Base.include SnowplowRubyDuid::Helper if defined?(ActionController)
