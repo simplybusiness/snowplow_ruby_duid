@@ -22,6 +22,7 @@ module SnowplowRubyDuid
           domain: '.simplybusiness.co.uk',
           expires: (Time.parse '2017-01-22 15:26:31 +0000').to_time,
           path: '/',
+          same_site: :none,
           value: 'domain_user_id.1421940391.0.1421940391.'
         )
       end
@@ -64,6 +65,10 @@ module SnowplowRubyDuid
 
       step 'the cookie value is :value' do |value|
         expect(subject.value[:value]).to eq(value)
+      end
+
+      step 'the cookie has the SameSite attribute set to :None' do |value|
+        expect(subject.value[:same_site]).to eq(:none)
       end
 
       step 'the cookie value for :field is :value' do |field, value|

@@ -30,7 +30,8 @@ module SnowplowRubyDuid
         value: cookie_value,
         expires: cookie_expiration,
         domain: cookie_domain,
-        path: COOKIE_PATH
+        path: COOKIE_PATH,
+        same_site: :none
       }
     end
 
