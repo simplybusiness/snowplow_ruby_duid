@@ -4,11 +4,8 @@ require 'securerandom'
 
 module SnowplowRubyDuid
   # Generates a pseudo-unique ID to fingerprint the user
-  # Deviates from this Snowplow Javascript: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L468-L472
-  #   in order to provide a more unique identifier
+  # It follows Snowplow Javascript: https://github.com/snowplow/snowplow-javascript-tracker/blob/2.14.0/src/js/tracker.js#L670-L672
   class DomainUserid
-    LENGTH_OF_DUID_IN_BYTES = 8
-
     def initialize
       @domain_user_id = domain_user_id
     end
@@ -20,7 +17,7 @@ module SnowplowRubyDuid
     private
 
     def domain_user_id
-      SecureRandom.hex LENGTH_OF_DUID_IN_BYTES
+      SecureRandom.uuid
     end
   end
 end

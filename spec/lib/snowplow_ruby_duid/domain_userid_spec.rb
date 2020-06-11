@@ -6,7 +6,7 @@ module SnowplowRubyDuid
 
     describe '#to_s' do
       it 'generates the domain userid' do
-        expect(subject.length).to eq(16)
+        expect(subject.length).to eq(36)
       end
     end
   end
