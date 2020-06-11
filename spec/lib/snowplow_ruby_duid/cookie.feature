@@ -13,6 +13,11 @@ Feature: Creating a Snowplow cookie
     When I create a Snowplow cookie
     Then the cookie has the SameSite attribute set to none
 
+  Scenario: The cookie should set secure if http
+    When I create a Snowplow cookie
+    And the request scheme is https
+    Then the cookie has the secure attribute
+
   Scenario Outline: The cookie should apply for all domains under the top-level domain (no domain for localhost or IP addresses, however)
     Given the host is '<host>'
      When I create a Snowplow cookie

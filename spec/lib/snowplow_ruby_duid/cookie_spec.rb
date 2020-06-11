@@ -6,9 +6,10 @@ module SnowplowRubyDuid
       @host               = 'www.simplybusiness.co.uk'
       @domain_userid      = 'domain_user_id'
       @request_created_at = (Time.parse '2015-01-22 15:26:31 +0000').to_time
+      @request_scheme     = 'http'
     end
 
-    subject { described_class.new @host, @domain_userid, @request_created_at }
+    subject { described_class.new @host, @domain_userid, @request_created_at, @request_scheme }
 
     describe '#key' do
       it 'generates the key' do
@@ -22,6 +23,7 @@ module SnowplowRubyDuid
           domain: '.simplybusiness.co.uk',
           expires: (Time.parse '2017-01-22 15:26:31 +0000').to_time,
           path: '/',
+          secure: false,
           same_site: :none,
           value: 'domain_user_id.1421940391.0.1421940391.'
         )
@@ -39,6 +41,14 @@ module SnowplowRubyDuid
 
       step 'the time is :time' do |time|
         @request_created_at = (Time.parse time).to_time
+      end
+
+      step 'the request scheme is :scheme' do |scheme|
+        @request_scheme = scheme
+      end
+
+      step 'the cookie has the secure attribute' do
+        expect(subject.value[:secure]).to eq(true)
       end
 
       step 'I create a Snowplow cookie' do; end
