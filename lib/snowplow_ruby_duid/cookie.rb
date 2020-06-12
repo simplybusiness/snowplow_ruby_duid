@@ -45,6 +45,7 @@ module SnowplowRubyDuid
     end
 
     # See: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L476-L487
+    # https://github.com/snowplow/snowplow-javascript-tracker/blob/2.14.0/src/js/tracker.js#L641-L650
     def cookie_value
       visit_count = '0'
       last_visit_ts = ''
