@@ -33,7 +33,7 @@ module SnowplowRubyDuid
         domain: cookie_domain,
         path: COOKIE_PATH,
         same_site: :none,
-        secure: @request_scheme == 'https',
+        secure: @request_scheme == 'https'
       }
     end
 

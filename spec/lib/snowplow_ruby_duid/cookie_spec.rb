@@ -77,7 +77,7 @@ module SnowplowRubyDuid
         expect(subject.value[:value]).to eq(value)
       end
 
-      step 'the cookie has the SameSite attribute set to :None' do |value|
+      step 'the cookie has the SameSite attribute set to :None' do
         expect(subject.value[:same_site]).to eq(:none)
       end
 
