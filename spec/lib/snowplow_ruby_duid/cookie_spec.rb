@@ -6,13 +6,12 @@ module SnowplowRubyDuid
       @host               = 'www.simplybusiness.co.uk'
       @domain_userid      = 'domain_user_id'
       @request_created_at = (Time.parse '2015-01-22 15:26:31 +0000').to_time
-      @request_scheme     = 'http'
       @same_site          = SnowplowRubyDuid::Configuration.same_site
       @secure             = SnowplowRubyDuid::Configuration.secure
     end
 
     subject {
-      described_class.new @host, @domain_userid, @request_created_at, @request_scheme, { secure: @secure, same_site: @same_site }
+      described_class.new @host, @domain_userid, @request_created_at, { secure: @secure, same_site: @same_site }
     }
 
     describe '#key' do

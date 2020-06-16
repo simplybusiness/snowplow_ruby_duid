@@ -22,7 +22,7 @@ module SnowplowRubyDuid
         secure: Configuration.secure,
         same_site: Configuration.same_site
       }
-      snowplow_cookie = Cookie.new request.host, domain_userid, request_created_at, request.scheme, options
+      snowplow_cookie = Cookie.new request.host, domain_userid, request_created_at, options
 
       response.set_cookie snowplow_cookie.key, snowplow_cookie.value
       domain_userid

@@ -11,11 +11,10 @@ module SnowplowRubyDuid
     # See: https://github.com/rails/rails/blob/b1124a2ac88778c0feb0157ac09367cbd204bf01/actionpack/lib/action_dispatch/middleware/cookies.rb#L214
     DOMAIN_REGEXP          = /[^.]*\.([^.]*|..\...|...\...)$/.freeze
 
-    def initialize(host, domain_userid, request_created_at, request_scheme, options = {})
+    def initialize(host, domain_userid, request_created_at, options = {})
       @host               = host
       @domain_userid      = domain_userid
       @request_created_at = request_created_at
-      @request_scheme     = request_scheme
       @secure             = options.fetch(:secure)
       @same_site          = options.fetch(:same_site)
     end
