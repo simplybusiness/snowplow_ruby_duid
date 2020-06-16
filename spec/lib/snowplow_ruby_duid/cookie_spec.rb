@@ -12,7 +12,7 @@ module SnowplowRubyDuid
     end
 
     subject {
-      described_class.new @host, @domain_userid, @request_created_at, @request_scheme, @secure, @same_site
+      described_class.new @host, @domain_userid, @request_created_at, @request_scheme, { secure: @secure, same_site: @same_site }
     }
 
     describe '#key' do
@@ -48,9 +48,7 @@ module SnowplowRubyDuid
       end
 
       step 'I configure library and set secure cookie to :val' do |setting|
-        if ['true', 'false'].include?(setting)
-          @secure = (setting == 'true')
-        end
+        @secure = (setting == 'true') if %w[true false].include?(setting)
       end
 
       step 'the cookie\'s secure setting is :set_not_set' do |value|
@@ -88,9 +86,7 @@ module SnowplowRubyDuid
       end
 
       step 'I configure the library and set same_site to equal :setting' do |setting|
-        unless setting.empty?
-          @same_site = setting.to_sym
-        end
+        @same_site = setting.to_sym unless setting.empty?
       end
 
       step 'the cookie has the SameSite attribute equal to :value' do |value|

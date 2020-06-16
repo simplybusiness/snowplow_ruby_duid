@@ -11,13 +11,13 @@ module SnowplowRubyDuid
     # See: https://github.com/rails/rails/blob/b1124a2ac88778c0feb0157ac09367cbd204bf01/actionpack/lib/action_dispatch/middleware/cookies.rb#L214
     DOMAIN_REGEXP          = /[^.]*\.([^.]*|..\...|...\...)$/.freeze
 
-    def initialize(host, domain_userid, request_created_at, request_scheme, secure, same_site)
+    def initialize(host, domain_userid, request_created_at, request_scheme, options = {})
       @host               = host
       @domain_userid      = domain_userid
       @request_created_at = request_created_at
       @request_scheme     = request_scheme
-      @secure             = secure
-      @same_site          = same_site
+      @secure             = options.fetch(:secure)
+      @same_site          = options.fetch(:same_site)
     end
 
     # See: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L358-L360
@@ -38,12 +38,10 @@ module SnowplowRubyDuid
         same_site: @same_site
       }
 
-      if @secure
-        base.merge!(secure: true)
-      end
+      base.merge!(secure: true) if @secure
 
       base
-      end
+    end
 
     private
 
