@@ -11,11 +11,13 @@ module SnowplowRubyDuid
     # See: https://github.com/rails/rails/blob/b1124a2ac88778c0feb0157ac09367cbd204bf01/actionpack/lib/action_dispatch/middleware/cookies.rb#L214
     DOMAIN_REGEXP          = /[^.]*\.([^.]*|..\...|...\...)$/.freeze
 
-    def initialize(host, domain_userid, request_created_at, request_scheme)
+    def initialize(host, domain_userid, request_created_at, request_scheme, secure, same_site)
       @host               = host
       @domain_userid      = domain_userid
       @request_created_at = request_created_at
       @request_scheme     = request_scheme
+      @secure             = secure
+      @same_site          = same_site
     end
 
     # See: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L358-L360
@@ -27,15 +29,21 @@ module SnowplowRubyDuid
 
     def value
       cookie_domain = ".#{top_level_domain}" unless top_level_domain.nil?
-      {
+
+      base = {
         value: cookie_value,
         expires: cookie_expiration,
         domain: cookie_domain,
         path: COOKIE_PATH,
-        same_site: :none,
-        secure: @request_scheme == 'https'
+        same_site: @same_site
       }
-    end
+
+      if @secure
+        base.merge!(secure: true)
+      end
+
+      base
+      end
 
     private
 

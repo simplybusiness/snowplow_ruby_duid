@@ -9,14 +9,26 @@ Feature: Creating a Snowplow cookie
     When I create a Snowplow cookie
     Then the cookie has the path '/'
 
-  Scenario: The cookie should set same_site to none
+  Scenario Outline: The cookie should have same_site configuration
+    Given I configure the library and set same_site to equal '<setting>'
     When I create a Snowplow cookie
-    Then the cookie has the SameSite attribute set to none
+    Then the cookie has the SameSite attribute equal to '<expected>'
+    Examples:
+      | setting | expected |
+      |         | none     |
+      | none    | none     |
+      | lax     | lax      |
+      | strict  | strict   |
 
-  Scenario: The cookie should set secure if http
+  Scenario Outline: The cookie is secure if the configuration is properly passed
+    Given I configure library and set secure cookie to <true_false>
     When I create a Snowplow cookie
-    And the request scheme is https
-    Then the cookie has the secure attribute
+    Then the cookie's secure setting is '<expected>'
+    Examples:
+      | true_false | expected |
+      | -          | set      |
+      | true       | set       |
+      | false      | not_set   |
 
   Scenario Outline: The cookie should apply for all domains under the top-level domain (no domain for localhost or IP addresses, however)
     Given the host is '<host>'

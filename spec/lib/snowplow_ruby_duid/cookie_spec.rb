@@ -7,9 +7,13 @@ module SnowplowRubyDuid
       @domain_userid      = 'domain_user_id'
       @request_created_at = (Time.parse '2015-01-22 15:26:31 +0000').to_time
       @request_scheme     = 'http'
+      @same_site          = SnowplowRubyDuid::Configuration.same_site
+      @secure             = SnowplowRubyDuid::Configuration.secure
     end
 
-    subject { described_class.new @host, @domain_userid, @request_created_at, @request_scheme }
+    subject {
+      described_class.new @host, @domain_userid, @request_created_at, @request_scheme, @secure, @same_site
+    }
 
     describe '#key' do
       it 'generates the key' do
@@ -23,8 +27,8 @@ module SnowplowRubyDuid
           domain: '.simplybusiness.co.uk',
           expires: (Time.parse '2017-01-22 15:26:31 +0000').to_time,
           path: '/',
-          secure: false,
           same_site: :none,
+          secure: true,
           value: 'domain_user_id.1421940391.0.1421940391.'
         )
       end
@@ -43,12 +47,18 @@ module SnowplowRubyDuid
         @request_created_at = (Time.parse time).to_time
       end
 
-      step 'the request scheme is :scheme' do |scheme|
-        @request_scheme = scheme
+      step 'I configure library and set secure cookie to :val' do |setting|
+        if ['true', 'false'].include?(setting)
+          @secure = (setting == 'true')
+        end
       end
 
-      step 'the cookie has the secure attribute' do
-        expect(subject.value[:secure]).to eq(true)
+      step 'the cookie\'s secure setting is :set_not_set' do |value|
+        if value == 'set'
+          expect(subject.value[:secure]).to eq(true)
+        else
+          expect(subject.value[:secure]).to eq(nil)
+        end
       end
 
       step 'I create a Snowplow cookie' do; end
@@ -77,8 +87,14 @@ module SnowplowRubyDuid
         expect(subject.value[:value]).to eq(value)
       end
 
-      step 'the cookie has the SameSite attribute set to none' do
-        expect(subject.value[:same_site]).to eq(:none)
+      step 'I configure the library and set same_site to equal :setting' do |setting|
+        unless setting.empty?
+          @same_site = setting.to_sym
+        end
+      end
+
+      step 'the cookie has the SameSite attribute equal to :value' do |value|
+        expect(subject.value[:same_site]).to eq(value.to_sym)
       end
 
       step 'the cookie value for :field is :value' do |field, value|
