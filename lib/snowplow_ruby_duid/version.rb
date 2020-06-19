@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module SnowplowRubyDuid
-  VERSION = '1.1.0.prerelease.1'
+  VERSION = '1.1.0'
 end
