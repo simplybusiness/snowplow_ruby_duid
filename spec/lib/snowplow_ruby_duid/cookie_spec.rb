@@ -26,8 +26,7 @@ module SnowplowRubyDuid
           domain: '.simplybusiness.co.uk',
           expires: (Time.parse '2017-01-22 15:26:31 +0000').to_time,
           path: '/',
-          same_site: :none,
-          secure: true,
+          same_site: :lax,
           value: 'domain_user_id.1421940391.0.1421940391.'
         )
       end

@@ -15,7 +15,7 @@ Feature: Creating a Snowplow cookie
     Then the cookie has the SameSite attribute equal to '<expected>'
     Examples:
       | setting | expected |
-      |         | none     |
+      |         | lax      |
       | none    | none     |
       | lax     | lax      |
       | strict  | strict   |
@@ -26,9 +26,9 @@ Feature: Creating a Snowplow cookie
     Then the cookie's secure setting is '<expected>'
     Examples:
       | true_false | expected |
-      | -          | set      |
-      | true       | set       |
-      | false      | not_set   |
+      | -          | not_set  |
+      | true       | set      |
+      | false      | not_set  |
 
   Scenario Outline: The cookie should apply for all domains under the top-level domain (no domain for localhost or IP addresses, however)
     Given the host is '<host>'

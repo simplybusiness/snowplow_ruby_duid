@@ -6,8 +6,8 @@ module SnowplowRubyDuid
   module Configuration
     @allowed = %i[none lax strict]
 
-    @same_site = :none
-    @secure = true
+    @same_site = :lax
+    @secure = false
 
     def self.same_site=(value)
       raise "Not allowed value #{value}, use one of these: #{@allowed}" unless @allowed.include?(value)
