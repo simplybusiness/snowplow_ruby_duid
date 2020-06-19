@@ -14,6 +14,17 @@ gem 'snowplow_ruby_duid'
 
 The helper will be included in `ActionController::Base` when the gem is loaded.
 
+#### Configuration
+
+Since 2020 some browsers require extra settings on cookies, like [SameSite](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite) and [secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#Secure) settings.
+
+The library provides default values for these two settings(:lax, false), that you can change: 
+
+```ruby
+SnowplowRubyDuid::Configuration.same_site = :none
+SnowplowRubyDuid::Configuration.secure = true
+```
+
 ### Sinatra
 
 Add the following to `Sinatra::Base`
