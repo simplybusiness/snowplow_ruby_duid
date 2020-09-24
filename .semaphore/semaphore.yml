@@ -1,0 +1,38 @@
+version: v1.0
+name: Semaphore v2 tests
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+global_job_config:
+  secrets:
+    - name: gemstash-secrets.yml
+  prologue:
+    commands:
+      - checkout
+      - 'cache restore bundle-$SEMAPHORE_GIT_BRANCH-$SEMAPHORE_WORKFLOW_ID,bundle-$SEMAPHORE_GIT_BRANCH,bundle-master'
+      - 'bundle config gemstash.simplybusiness.io $GEMSTASH_USER:$GEMSTASH_PASSWORD'
+      - bundle install --path vendor/bundle
+      - bundle clean --force
+      - cache store bundle-$SEMAPHORE_GIT_BRANCH-$SEMAPHORE_WORKFLOW_ID vendor/bundle
+blocks:
+  - name: Semaphore v2 tests
+    dependencies: []
+    execution_time_limit:
+      minutes: 10
+    task:
+      jobs:
+        - name: Rspec job
+          commands:
+            - bundle exec rspec
+  - name: Semaphore v2 Compliance
+    dependencies: []
+    skip:
+      when: branch = 'master'
+    execution_time_limit:
+      minutes: 10
+    task:
+      jobs:
+        - name: Rubocop
+          commands:
+            - bundle exec rubocop
