@@ -8,8 +8,6 @@ auto_cancel:
   running:
     when: branch != 'master'
 global_job_config:
-  secrets:
-    - name: gemstash-secrets.yml
   prologue:
     commands:
       - checkout
