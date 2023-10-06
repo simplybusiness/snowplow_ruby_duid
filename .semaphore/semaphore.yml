@@ -3,7 +3,7 @@ name: Semaphore v2 tests
 agent:
   machine:
     type: e1-standard-2
-    os_image: ubuntu1804
+    os_image: ubuntu2004
 auto_cancel:
   running:
     when: branch != 'master'
