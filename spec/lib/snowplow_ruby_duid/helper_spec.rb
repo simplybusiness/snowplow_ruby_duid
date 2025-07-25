@@ -16,7 +16,7 @@ module SnowplowRubyDuid
       after do
         Timecop.return
       end
-      subject { last_response.header['Set-Cookie'] }
+      subject { last_response.headers['Set-Cookie'] }
 
       feature do
         step 'I set a Snowplow domain userid of :domain_userid in my cookie' do |domain_userid|
@@ -75,6 +75,6 @@ class App
 
     @domain_userid = snowplow_domain_userid
 
-    [response.status, response.header, response.body]
+    [response.status, response.headers, response.body]
   end
 end
