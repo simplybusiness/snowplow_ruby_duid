@@ -1,4 +1,4 @@
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
 
 Style/BlockDelimiters:
@@ -12,7 +12,7 @@ Metrics/BlockLength:
 Style/DateTime:
   Exclude:
     - 'lib/snowplow_ruby_duid/cookie.rb'
-    
+
 Gemspec/RequiredRubyVersion:
   Exclude:
     - 'snowplow_ruby_duid.gemspec'
