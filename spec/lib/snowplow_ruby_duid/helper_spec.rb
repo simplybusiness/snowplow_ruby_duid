@@ -18,6 +18,7 @@ module SnowplowRubyDuid
       after do
         Timecop.return
       end
+
       subject { last_response.headers['Set-Cookie'] }
 
       describe do

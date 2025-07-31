@@ -4,6 +4,9 @@ module SnowplowRubyDuid
   # This is the same as SnowplowRubyDuid::Helper, except it handles the HTTP
   # objects that the Grape API (https://github.com/ruby-grape/grape) exposes
   # (`response`, `request`, `request.cookies`) in an appropriate manner.
+
+  COOKIE_PREFIX_PATTERN = /^#{KEY_PREFIX}/o
+
   module GrapeHelper
     def snowplow_domain_userid
       @snowplow_domain_userid ||= find_or_create_snowplow_domain_userid
@@ -42,7 +45,7 @@ module SnowplowRubyDuid
     def find_snowplow_cookie
       snowplow_cookie = nil
       request.cookies.each do |(key, value)|
-        if key =~ /^#{KEY_PREFIX}/
+        if COOKIE_PREFIX_PATTERN.match?(key)
           snowplow_cookie = [key, value]
           break
         end

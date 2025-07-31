@@ -5,25 +5,25 @@ require 'timecop'
 
 require 'rspec'
 RSpec.describe 'SnowplowRubyDuid::GrapeHelper' do
-  context 'the cookie has been set before' do
-    let(:subject) { GrapeHelperSpecTestApp.new }
+  context 'when the cookie has been set before' do
+    let(:test_app) { GrapeHelperSpecTestApp.new }
     let(:snowplow_cookie_id) { '_sp_id.79723' }
     let(:snowplow_cookie_value) { 'domainUserId.createTs.visitCount.nowTs.lastVisitTs' }
 
     before do
-      subject.request.cookies[snowplow_cookie_id] = snowplow_cookie_value
+      test_app.request.cookies[snowplow_cookie_id] = snowplow_cookie_value
     end
 
     it 'finds the cookie and returns the domain id' do
-      expect(subject.snowplow_domain_userid).to eq('domainUserId')
+      expect(test_app.snowplow_domain_userid).to eq('domainUserId')
     end
   end
 
-  context 'the cookie has not been set before' do
-    let(:subject) { GrapeHelperSpecTestApp.new }
+  context 'when the cookie has not been set before' do
+    let(:test_app) { GrapeHelperSpecTestApp.new }
 
     before do
-      Timecop.freeze(Time.local(2025, 2, 1, 10, 0, 0))
+      Timecop.freeze(Time.local(2025, 2, 1, 10, 0, 0)) # rubocop:disable CustomCops/TimecopWithoutBlock
     end
 
     after do
@@ -32,23 +32,23 @@ RSpec.describe 'SnowplowRubyDuid::GrapeHelper' do
 
     it "creates a new domain id cookie if one doesn't exist" do
       # Start with empty cookies.
-      expect(subject.request.cookies).to eq({})
+      expect(test_app.request.cookies).to eq({})
 
-      got_userid = subject.snowplow_domain_userid
+      got_userid = test_app.snowplow_domain_userid
       # These are random/uuids, but have this format: "60bde8c9-8047-410c-97a8-d73af82f90fe"
       expect(got_userid).to match(/^([0-9a-fA-F]+-){4}[0-9a-fA-F]+$/)
 
       # cookies should now be filled with the one created.
-      cookies = subject.request.cookies
-      expect(cookies.size).to eq(1)
+      retrieved_cookies = test_app.request.cookies
+      expect(retrieved_cookies.size).to eq(1)
 
       # We know there's only one cookie here, so just use that for the test.
       aggregate_failures 'cookie structure' do
         # format is [key, value]
-        cookie_key = cookies.first[0]
+        cookie_key = retrieved_cookies.first[0]
         expect(cookie_key).to start_with(SnowplowRubyDuid::KEY_PREFIX)
 
-        cookie_value = cookies.first[1]
+        cookie_value = retrieved_cookies.first[1]
         expect(cookie_value).to be_a(Hash)
         expect(cookie_value[:value]).to start_with(got_userid)
         # Timecop frozen "now" + 2 years
