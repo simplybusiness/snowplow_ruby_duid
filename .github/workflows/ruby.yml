@@ -31,7 +31,7 @@ jobs:
     - name: Rubocop Check
       run: bundle exec rubocop
     - name: Run all tests
-      run: bundle exec rake test
+      run: bundle exec rspec
       shell: bash
     - name: Run example_app
       run: bundle exec ruby example_app.rb
