@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: snowplow_ruby_duid
+  title: Snowplow Ruby DUID
+  description: A gem that exposes the Snowplow domain userid in Rack applications. Also allows you to set your own domain userid that will be shared with the Snowplow Javascript tracker.
+  annotations:
+    rubygems.org/name: "snowplow_ruby_duid"
+spec:
+  type: library
+  lifecycle: production

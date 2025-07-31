@@ -32,7 +32,7 @@ module SnowplowRubyDuid
       end
     end
 
-    feature do
+    describe do
       step 'the host is :host' do |host|
         @host = host
       end
@@ -46,7 +46,7 @@ module SnowplowRubyDuid
       end
 
       step 'I configure library and set secure cookie to :val' do |setting|
-        @secure = (setting == 'true') if %w[true false].include?(setting)
+        @secure = (setting == 'true') if ['true', 'false'].include?(setting)
       end
 
       step 'the cookie\'s secure setting is :set_not_set' do |value|
@@ -57,7 +57,8 @@ module SnowplowRubyDuid
         end
       end
 
-      step 'I create a Snowplow cookie' do; end
+      step 'I create a Snowplow cookie' do
+      end
 
       step 'the cookie has the path :path' do |path|
         expect(subject.value[:path]).to eq(path)

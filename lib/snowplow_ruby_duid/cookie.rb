@@ -9,7 +9,7 @@ module SnowplowRubyDuid
     # See: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L156
     COOKIE_DURATION_MONTHS = 24
     # See: https://github.com/rails/rails/blob/b1124a2ac88778c0feb0157ac09367cbd204bf01/actionpack/lib/action_dispatch/middleware/cookies.rb#L214
-    DOMAIN_REGEXP          = /[^.]*\.([^.]*|..\...|...\...)$/.freeze
+    DOMAIN_REGEXP          = /[^.]*\.([^.]*|..\...|...\...)$/
 
     def initialize(host, domain_userid, request_created_at, options = {})
       @host               = host
@@ -46,7 +46,7 @@ module SnowplowRubyDuid
 
     # See: https://github.com/rails/rails/blob/b1124a2ac88778c0feb0157ac09367cbd204bf01/actionpack/lib/action_dispatch/middleware/cookies.rb#L286-L294
     def top_level_domain
-      $& if (@host !~ /^[\d.]+$/) && (@host =~ DOMAIN_REGEXP)
+      ::Regexp.last_match(0) if (@host !~ /^[\d.]+$/) && (@host =~ DOMAIN_REGEXP)
     end
 
     # See: https://github.com/snowplow/snowplow-javascript-tracker/blob/d3d10067127eb5c95d0054c8ae60f3bdccba619d/src/js/tracker.js#L476-L487

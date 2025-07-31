@@ -10,15 +10,18 @@ module SnowplowRubyDuid
 
     describe 'snowplow_domain_userid' do
       let(:app) { App.new }
+
       before do
         Timecop.freeze(Time.local(1990))
       end
+
       after do
         Timecop.return
       end
+
       subject { last_response.header['Set-Cookie'] }
 
-      feature do
+      describe do
         step 'I set a Snowplow domain userid of :domain_userid in my cookie' do |domain_userid|
           set_cookie("_sp_id.3678=#{domain_userid}.631152000.0.631152000.631152000") unless domain_userid == ''
         end
