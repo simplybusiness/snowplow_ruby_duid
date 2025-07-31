@@ -23,7 +23,11 @@ RSpec.describe 'SnowplowRubyDuid::GrapeHelper' do
     let(:subject) { GrapeHelperSpecTestApp.new }
 
     before do
-      Timecop.freeze('2025-01-02 12:34')
+      Timecop.freeze(Time.local(2025, 2, 1, 10, 0, 0))
+    end
+
+    after do
+      Timecop.return
     end
 
     it "creates a new domain id cookie if one doesn't exist" do
@@ -48,7 +52,7 @@ RSpec.describe 'SnowplowRubyDuid::GrapeHelper' do
         expect(cookie_value).to be_a(Hash)
         expect(cookie_value[:value]).to start_with(got_userid)
         # Timecop frozen "now" + 2 years
-        expect(cookie_value[:expires].to_s.encode('US-ASCII')).to eq('2027-01-02 12:34:00 -0500'.encode('US-ASCII'))
+        expect(cookie_value[:expires].to_s.encode('US-ASCII')).to start_with('2027-02-01 10:00:00'.encode('US-ASCII'))
         expect(cookie_value[:domain]).to eq('.example.com')
         expect(cookie_value[:path]).to eq('/')
         expect(cookie_value[:same_site]).to eq(:lax)
