@@ -6,7 +6,7 @@ require 'timecop'
 require 'rspec'
 RSpec.describe 'SnowplowRubyDuid::GrapeHelper' do
   context 'the cookie has been set before' do
-    let(:subject) { App.new }
+    let(:subject) { GrapeHelperSpecTestApp.new }
     let(:snowplow_cookie_id) { '_sp_id.79723' }
     let(:snowplow_cookie_value) { 'domainUserId.createTs.visitCount.nowTs.lastVisitTs' }
 
@@ -20,7 +20,7 @@ RSpec.describe 'SnowplowRubyDuid::GrapeHelper' do
   end
 
   context 'the cookie has not been set before' do
-    let(:subject) { App.new }
+    let(:subject) { GrapeHelperSpecTestApp.new }
 
     before do
       Timecop.freeze('2025-01-02 12:34')
@@ -47,7 +47,8 @@ RSpec.describe 'SnowplowRubyDuid::GrapeHelper' do
         cookie_value = cookies.first[1]
         expect(cookie_value).to be_a(Hash)
         expect(cookie_value[:value]).to start_with(got_userid)
-        expect(cookie_value[:expires].to_s).to eq('2027-01-02 12:34:00 -0500') # Timecop frozen "now" + 2 years
+        # Timecop frozen "now" + 2 years
+        expect(cookie_value[:expires].to_s.encode('US-ASCII')).to eq('2027-01-02 12:34:00 -0500'.encode('US-ASCII'))
         expect(cookie_value[:domain]).to eq('.example.com')
         expect(cookie_value[:path]).to eq('/')
         expect(cookie_value[:same_site]).to eq(:lax)
@@ -59,7 +60,7 @@ end
 # What we're testing is a Mixin, so mix it in to something we control
 # the methods that the Mixin uses (cookies, request.cookies, request.host).  We don't
 # need ACTUAL Grape things here, just things that act the same way.
-class App
+class GrapeHelperSpecTestApp
   include SnowplowRubyDuid::GrapeHelper
 
   attr_reader :request
