@@ -9,7 +9,7 @@ module SnowplowRubyDuid
     include Rack::Test::Methods
 
     describe 'snowplow_domain_userid' do
-      let(:app) { App.new }
+      let(:app) { HelperTestApp.new }
 
       before do
         Timecop.freeze(Time.local(1990))
@@ -65,7 +65,7 @@ module SnowplowRubyDuid
   end
 end
 
-class App
+class HelperTestApp
   include SnowplowRubyDuid::Helper
 
   attr_reader :request, :response, :domain_userid
