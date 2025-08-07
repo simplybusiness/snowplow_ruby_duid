@@ -4,7 +4,7 @@ module SnowplowRubyDuid
   # This is the configuration object that is used for two additional cookie settings
   # that can't be deferred from the request/response objects
   module Configuration
-    @allowed = %i[none lax strict]
+    @allowed = [:none, :lax, :strict]
 
     @same_site = :lax
     @secure = false

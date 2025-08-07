@@ -1,4 +1,13 @@
-Metrics/LineLength:
+
+inherit_from: .rubocop_todo.yml
+
+inherit_gem:
+  simplycop:
+    - .simplycop.yml
+    - .simplycop_performance.yml
+    - .simplycop_rspec.yml
+
+Layout/LineLength:
   Enabled: false
 
 Style/BlockDelimiters:
@@ -12,7 +21,7 @@ Metrics/BlockLength:
 Style/DateTime:
   Exclude:
     - 'lib/snowplow_ruby_duid/cookie.rb'
-    
+
 Gemspec/RequiredRubyVersion:
   Exclude:
     - 'snowplow_ruby_duid.gemspec'

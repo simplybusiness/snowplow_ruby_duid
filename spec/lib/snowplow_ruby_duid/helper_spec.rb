@@ -9,16 +9,19 @@ module SnowplowRubyDuid
     include Rack::Test::Methods
 
     describe 'snowplow_domain_userid' do
-      let(:app) { App.new }
+      let(:app) { HelperTestApp.new }
+
       before do
         Timecop.freeze(Time.local(1990))
       end
+
       after do
         Timecop.return
       end
-      subject { last_response.header['Set-Cookie'] }
 
-      feature do
+      subject { last_response.headers['Set-Cookie'] }
+
+      describe do
         step 'I set a Snowplow domain userid of :domain_userid in my cookie' do |domain_userid|
           set_cookie("_sp_id.3678=#{domain_userid}.631152000.0.631152000.631152000") unless domain_userid == ''
         end
@@ -63,7 +66,7 @@ module SnowplowRubyDuid
   end
 end
 
-class App
+class HelperTestApp
   include SnowplowRubyDuid::Helper
 
   attr_reader :request, :response, :domain_userid
@@ -75,6 +78,6 @@ class App
 
     @domain_userid = snowplow_domain_userid
 
-    [response.status, response.header, response.body]
+    [response.status, response.headers, response.body]
   end
 end

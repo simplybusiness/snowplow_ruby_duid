@@ -36,7 +36,7 @@ module SnowplowRubyDuid
     end
 
     def find_snowplow_cookie
-      request.cookies.find { |(key, _value)| key =~ /^#{KEY_PREFIX}/ } # result will be an array containing: [key, value]
+      request.cookies.find { |(key, _value)| key =~ /^#{KEY_PREFIX}/o } # result will be an array containing: [key, value]
     end
   end
 end
