@@ -13,7 +13,7 @@ jobs:
       BUNDLE_WITHOUT: "development:test"
     steps:
       - name: Chekcout action
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: 'simplybusiness/dobby'
           ref: 'v4'
